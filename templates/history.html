@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3 class="mb-4">My Draft History</h3>
+
+<div class="card shadow p-4">
+
+<table class="table table-bordered">
+<thead class="table-dark">
+<tr>
+<th>Date</th>
+<th>Client</th>
+<th>Opposite Party</th>
+<th>Case Type</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+{% for n in notices %}
+<tr>
+<td>{{ n.created_at|date:"d M Y" }}</td>
+<td>{{ n.client_name }}</td>
+<td>{{ n.opposite_party }}</td>
+<td>{{ n.case_type }}</td>
+<td>
+<a href="/view/{{ n.id }}/" class="btn btn-sm btn-primary">Open</a>
+</td>
+</tr>
+{% empty %}
+<tr>
+<td colspan="5" class="text-center">No drafts yet</td>
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

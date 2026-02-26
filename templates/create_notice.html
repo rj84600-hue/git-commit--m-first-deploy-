@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3 class="mb-4">Generate Legal Notice</h3>
+
+<div class="card shadow p-4">
+
+<form method="post">
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+<label>Client Name</label>
+<input type="text" name="client" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Opposite Party Name</label>
+<input type="text" name="opposite" class="form-control" required>
+</div>
+
+<div class="col-md-12 mb-3">
+<label>Opposite Party Address</label>
+<textarea name="opposite_address" class="form-control" required></textarea>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Case Type</label>
+<select name="case" class="form-control">
+<option>Payment Due</option>
+<option>Cheque Bounce</option>
+<option>Property Dispute</option>
+<option>Agreement Violation</option>
+</select>
+</div>
+
+<div class="col-md-12 mb-3">
+<label>Facts / Description</label>
+<textarea name="description" class="form-control" rows="4" required></textarea>
+</div>
+
+<hr>
+
+<h5>Optional Financial Details</h5>
+
+<div class="col-md-4 mb-3">
+<label>Amount (₹)</label>
+<input type="number" name="amount" class="form-control">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Interest %</label>
+<input type="number" name="interest" class="form-control">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Due Date</label>
+<input type="date" name="date" class="form-control">
+</div>
+
+</div>
+
+<button class="btn btn-success mt-3">Generate Notice</button>
+
+</form>
+</div>
+
+{% if notice %}
+
+<hr>
+
+<div class="card shadow p-4 mt-4">
+<h4>Generated Notice</h4>
+
+<pre style="white-space: pre-wrap; font-family:Times New Roman; font-size:15px;">
+{{ notice }}
+</pre>
+
+<div class="mt-3">
+<a href="/download/" class="btn btn-primary">Download PDF</a>
+<a href="/download-word/" class="btn btn-dark">Download Word</a>
+</div>
+
+</div>
+{% endif %}
+
+{% endblock %}

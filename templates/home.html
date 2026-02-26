@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<!-- DASHBOARD (Login hone ke baad) -->
+
+<div class="row justify-content-center">
+
+```
+<div class="col-md-10">
+
+    <div class="card shadow-lg border-0 mb-4">
+        <div class="card-body">
+
+            <h2 class="mb-3">Welcome, Advocate {{ profile.name }}</h2>
+
+            <p><strong>Chamber Address:</strong> {{ profile.address }}</p>
+            <p><strong>Mobile:</strong> {{ profile.phone }}</p>
+            <p><strong>Email:</strong> {{ profile.email }}</p>
+
+        </div>
+    </div>
+
+    <div class="row text-center">
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow border-0 p-4">
+                <h1 class="display-5">{{ total_notices }}</h1>
+                <p>Total Drafts Created</p>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow border-0 p-4">
+                <a href="/generate/" class="btn btn-success btn-lg">Generate New Legal Notice</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+{% else %}
+
+<!-- LANDING PAGE (Login nahi) -->
+
+<div class="text-center mt-5">
+
+```
+<h1 style="font-size:42px; font-weight:700; color:#1c3faa;">
+    ⚖ AI Legal Drafting Assistant
+</h1>
+
+<p class="lead mt-3">
+    Generate professional legal notices in seconds.<br>
+    Designed specially for Indian Advocates.
+</p>
+
+<div class="mt-4">
+    <a href="/signup/" class="btn btn-success btn-lg me-3">Create Account</a>
+    <a href="/login/" class="btn btn-primary btn-lg">Login</a>
+</div>
+```
+
+</div>
+
+{% endif %}
+
+{% endblock %}
