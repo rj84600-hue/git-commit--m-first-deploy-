@@ -122,6 +122,7 @@ Return bullet points only.
             model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": groq_prompt}],
             temperature=0.3,
+            max_tokens=1200,
         )
 
         structured_facts = groq_response.choices[0].message.content
