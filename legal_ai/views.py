@@ -228,3 +228,32 @@ def view_notice(request, id):
     notice = get_object_or_404(Notice, id=id)
     request.session["latest_notice"] = notice.notice_text
     return render(request, "create_notice.html", {"notice": notice.notice_text})
+
+# ================= WORD DOWNLOAD =================
+@login_required
+def download_word(request):
+
+    from docx import Document
+    from docx.shared import Pt
+
+    text = request.session.get("latest_notice", "")
+    if not text:
+        return HttpResponse("No notice found")
+
+    document = Document()
+
+    style = document.styles['Normal']
+    font = style.font
+    font.name = 'Times New Roman'
+    font.size = Pt(12)
+
+    for line in text.split("\n"):
+        document.add_paragraph(line)
+
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    )
+    response['Content-Disposition'] = 'attachment; filename="legal_notice.docx"'
+
+    document.save(response)
+    return response
